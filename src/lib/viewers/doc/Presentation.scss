@@ -1,0 +1,81 @@
+@import 'docBase';
+@import './DocFindBar';
+
+// Centers single page for presentation mode
+.bp-doc.bp-doc-presentation {
+    overflow: hidden;
+
+    .pdfViewer .page {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+
+        &.bp-is-invisible {
+            opacity: 0; // Combine with visibility: hidden to improve large file performance in Safari
+        }
+    }
+
+    &.overflow-x {
+        overflow-x: scroll;
+    }
+
+    &.overflow-y {
+        overflow-y: scroll;
+
+        .pdfViewer .page {
+            margin-top: 5px;
+        }
+    }
+}
+
+// Used for showing preload, aka Instant Preview
+.bp-presentation-preload-wrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    background-color: $ffive;
+    transition: opacity .5s;
+
+    &.bp-is-invisible {
+        visibility: hidden;
+    }
+
+    &.bp-is-transparent {
+        opacity: 0;
+    }
+
+    .bp-theme-dark & {
+        background-color: $sunset-grey;
+    }
+
+    .bp-preload-content,
+    .bp-preload-overlay,
+    .bp-preload-placeholder {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+
+    .bp-preload-content {
+        width: 100%;
+    }
+
+    .bp-preload-overlay {
+        background-color: rgba(255, 255, 255, .4);
+    }
+
+    .bp-preload-placeholder {
+        @include bp-DocGhost;
+        @include bp-DocShadow;
+
+        margin: auto;
+    }
+}

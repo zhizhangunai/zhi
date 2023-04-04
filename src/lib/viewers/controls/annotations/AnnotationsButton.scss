@@ -1,0 +1,19 @@
+@import '~box-ui-elements/es/styles/variables';
+@import '../styles';
+
+.bp-AnnotationsButton {
+    @include bp-Control;
+
+    svg {
+        fill: $white;
+    }
+
+    &.bp-is-active {
+        opacity: 1;
+
+        svg {
+            background-color: $white;
+            fill: $black;
+        }
+    }
+}

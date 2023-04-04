@@ -1,0 +1,24 @@
+@import '~box-ui-elements/es/styles/variables';
+
+.bp-SearchBar {
+    display: flex;
+    flex: 0 0 70px;
+    align-items: center;
+    padding: 0 20px;
+    background: $almost-white;
+    border-bottom: 1px solid $bdl-gray-10;
+
+    // override .be input[type='serach']
+    input[type='search'] {
+        width: 100%;
+        height: 36px; // fix IE 11 doesn't respect line-height
+        font: inherit;
+        /* stylelint-disable-next-line property-no-vendor-prefix */
+        -webkit-appearance: none; // fix iOS Safari search bar rounded corner
+
+        &::-webkit-search-cancel-button,
+        &::-webkit-search-results-button {
+            display: none; // consistent with Box webapp
+        }
+    }
+}

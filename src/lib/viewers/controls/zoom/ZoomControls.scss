@@ -1,0 +1,15 @@
+@import '../styles';
+
+.bp-ZoomControls {
+    display: flex;
+    align-items: center;
+}
+
+.bp-ZoomControls-button {
+    @include bp-Control($width: $bp-controls-size-small);
+    @include bp-Control--expand;
+}
+
+.bp-ZoomControls-current {
+    @include bp-ControlLabel;
+}

@@ -1,0 +1,18 @@
+.bp-vs {
+    flex: 1 0 auto;
+    overflow-y: auto;
+
+    .bp-vs-list {
+        position: relative;
+        margin: 0;
+        padding: 0;
+    }
+
+    .bp-vs-list-item {
+        position: absolute;
+        right: 0;
+        left: 0;
+        display: flex;
+        box-sizing: border-box;
+    }
+}

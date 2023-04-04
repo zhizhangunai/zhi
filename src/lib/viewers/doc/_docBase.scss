@@ -1,0 +1,433 @@
+@import '../../boxuiVariables';
+@import './annotations';
+@import './mixins';
+@import './theme';
+
+$pdfjs-highlight: #b400aa !default;
+$pdfjs-highlight-selected: #006400 !default;
+$pdfjs-page-padding: 15px;
+$thumbnail-border-radius: 6px;
+$thumbnail-sidebar-width: 191px; // Extra pixel to account for sidebar border
+
+.bp {
+    .bp-ThumbnailsToggle {
+        display: none;
+    }
+
+    .bp-thumbnails-container {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        display: none;
+        flex: 0 0 auto;
+        width: $thumbnail-sidebar-width;
+        border-right: solid 1px $seesee;
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    .bp-thumbnail {
+        position: relative;
+        display: flex;
+        margin-right: 20px;
+        margin-left: 20px;
+        cursor: pointer;
+
+        &:focus,
+        &:hover {
+            .bp-thumbnail-page-number {
+                background: $seventy-sixers;
+                opacity: 1;
+            }
+
+            .bp-thumbnail-nav {
+                box-shadow: 0 0 0 1px $seventy-sixers, 0 4px 5px 0 rgba(0, 0, 0, .15);
+            }
+
+            &.bp-thumbnail-image-loaded {
+                .bp-thumbnail-nav {
+                    background-color: $seventy-sixers; // Prevents the default background from showing through the image borders
+                }
+            }
+        }
+
+        &.bp-thumbnail-is-selected {
+            .bp-thumbnail-page-number {
+                background: $box-blue;
+                opacity: 1;
+            }
+
+            .bp-thumbnail-nav {
+                box-shadow: 0 0 0 3px $box-blue, 0 4px 5px 0 rgba(0, 0, 0, .08);
+            }
+
+            &.bp-thumbnail-image-loaded {
+                .bp-thumbnail-nav {
+                    background-color: $box-blue; // Prevents the default background from showing through the image borders
+                }
+            }
+        }
+    }
+
+    .bp-thumbnail:not(.bp-thumbnail-image-loaded) {
+        .bp-thumbnail-nav {
+            @include bp-DocGhost;
+        }
+    }
+
+    .bp-thumbnail-nav {
+        flex: 0 0 150px; // IE11 does not respect width within a flex container
+        overflow: hidden;
+        background-color: $d-eight;
+        border-radius: $thumbnail-border-radius;
+        box-shadow: 0 0 0 1px $off-white, 0 1px 4px 0 rgba(0, 0, 0, .08);
+    }
+
+    .bp-thumbnail-page-number {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 28px;
+        height: 24px;
+        padding-right: 3px;
+        padding-left: 3px;
+        color: $white;
+        font-size: 13px;
+        border-radius: $thumbnail-border-radius / 2 0 $thumbnail-border-radius 0;
+        box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, .2);
+        opacity: 0;
+    }
+
+    .bp-thumbnail-image {
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain; // Needed for the case of document with portrait and landscape orientations
+        pointer-events: none; // Allow the parent elements to handle user events
+    }
+
+    .bp-thumbnails-container--dark {
+        background-color: $fours;
+        border-right-color: $black;
+
+        .bp-thumbnail-page-number {
+            background-color: $fours;
+        }
+
+        .bp-thumbnail-nav {
+            border-color: $fours;
+        }
+    }
+
+    @keyframes bp-thumbnails-open {
+        0% {
+            display: none;
+            transform: translateX(-$thumbnail-sidebar-width);
+        }
+
+        1% {
+            display: flex;
+            transform: translateX(-$thumbnail-sidebar-width);
+        }
+
+        100% {
+            transform: translateX(0);
+        }
+    }
+
+    @media (min-width: 600px) {
+        $bp-thumbnails-animation: 300ms cubic-bezier(.4, 0, .2, 1);
+
+        &.bp-loaded.bp-thumbnails-open-active,
+        &.bp-loaded.bp-thumbnails-close-active {
+            .bp-content {
+                transition: left $bp-thumbnails-animation;
+            }
+        }
+
+        .bp-thumbnails-container {
+            display: none;
+            transition: transform $bp-thumbnails-animation;
+        }
+
+        &,
+        &.bp-thumbnails-close,
+        &.bp-thumbnails-close-active {
+            .bp-thumbnails-container {
+                transform: translateX(-$thumbnail-sidebar-width);
+            }
+        }
+
+        &.bp-thumbnails-close {
+            .bp-thumbnails-container {
+                display: none;
+            }
+        }
+
+        &.bp-thumbnails-close-active {
+            .bp-thumbnails-container {
+                display: flex;
+            }
+        }
+
+        &.bp-thumbnails-open {
+            .bp-content {
+                left: $thumbnail-sidebar-width;
+
+                &.bp-is-fullscreen {
+                    left: 0;
+                }
+            }
+
+            .bp-thumbnails-container {
+                display: flex;
+                transform: translateX(0);
+            }
+        }
+
+        &.bp-thumbnails-open-active {
+            .bp-thumbnails-container {
+                animation: bp-thumbnails-open $bp-thumbnails-animation;
+            }
+        }
+
+        .bp-ThumbnailsToggle {
+            display: flex;
+        }
+    }
+}
+
+.bp-theme-dark {
+    .bp {
+        .bp-thumbnails-container {
+            border-right-color: $twos;
+        }
+    }
+}
+
+.bp-doc {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    letter-spacing: normal; // Reset Box UI
+    user-select: none;
+    // Removes canvas flickering on tap for iOS Safari
+    -webkit-tap-highlight-color: transparent;
+
+    // Hides black canvas during rendering
+    [hidden] {
+        /* stylelint-disable declaration-no-important */
+        display: none !important;
+        /* stylelint-enable declaration-no-important */
+    }
+
+    // Fixes vertical scroll issue - scrollbars should be disabled until after preview is loaded
+    &.bp-is-scrollable {
+        overflow: auto;
+    }
+
+    .pdfViewer.pinching {
+        visibility: hidden;
+    }
+
+    //---------- Override CSS from generic PDFJS viewer build ----------//
+    .pdfViewer .page {
+        position: relative;
+        display: block;
+        /* stylelint-disable declaration-no-important */
+        box-sizing: content-box !important;
+        /* stylelint-enable declaration-no-important */
+        margin: 0 auto;
+        // We use padding instead of margin to push down since we want to
+        // include this padding when PDF.js jumps to pages
+        padding: $pdfjs-page-padding 0;
+        overflow: visible;
+        border: 0;
+        border-image: none;
+
+        // Avoid showing loading states on invisible pages due to performance issues in Safari
+        &:not(.bp-is-invisible) {
+            // Add shadow to an underlying element to avoid overlapping shadows on canvasWrapper and loadingIcon
+            &::before {
+                @include bp-DocShadow;
+
+                position: absolute;
+                top: $pdfjs-page-padding;
+                right: 0;
+                bottom: $pdfjs-page-padding;
+                left: 0;
+                display: block;
+                content: '';
+            }
+
+            // Display the ghost state only if the page does not already have rendered content (e.g. during a resize)
+            .loadingIcon:first-child {
+                @include bp-DocGhost;
+            }
+        }
+
+        // Override loading icon styles from pdf.js
+        .loadingIcon {
+            top: $pdfjs-page-padding;
+            bottom: $pdfjs-page-padding;
+            background: none;
+        }
+
+        // Fixes annotation icon broken src
+        .textAnnotation > img {
+            opacity: 0;
+        }
+    }
+
+    .pdfViewer .page.pinch-page {
+        padding: 0;
+        visibility: visible;
+
+        .textLayer {
+            display: none;
+        }
+    }
+
+    .textLayer {
+        caret-color: black; // Required for caret navigation on transparent text
+        top: $pdfjs-page-padding;
+        bottom: auto;
+        opacity: 1;
+
+        // Only allow text divs to be selected
+        > div {
+            user-select: text;
+        }
+
+        .highlight {
+            display: inline-block;
+            background-color: fade-out($pdfjs-highlight, .8);
+
+            &.selected {
+                background-color: fade-out($pdfjs-highlight-selected, .8);
+            }
+        }
+
+        // For legacy Annotations highlight selection
+        .rangy-highlight {
+            opacity: .2;
+        }
+
+        ::selection {
+            background-color: fade-out($box-blue, .9);
+        }
+    }
+
+    // Allow other text to be selectable
+    input,
+    p,
+    span {
+        user-select: text;
+    }
+
+    .annotationLayer {
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        p {
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 1em;
+        }
+
+        // This is so hover and click targets for links inside the document show
+        // up correctly. We add 15px top margin since PDF.js sets the top for these
+        // manually assuming there is no vertical padding on the page
+        section {
+            margin-top: 15px;
+        }
+
+        // Prevent placeholder {{ date }}, {{ time }} text from displaying when
+        // hovering over baked-in pdf annotations
+        span[data-l10n-id] {
+            display: none;
+        }
+
+        .popup {
+            font-size: inherit;
+        }
+    }
+}
+
+.bp-print-notification {
+    display: none;
+    font-size: 24px;
+}
+
+// Hide content when using native print, show message to use print button
+@media print {
+    .bp-doc {
+        display: none;
+    }
+
+    .bp-print-notification {
+        display: block;
+    }
+}
+
+.bp-content {
+    &.bp-annotations-discoverable {
+        // Hide cursor popup in default mode
+        .ba-PopupCursor {
+            display: none;
+        }
+
+        .textLayer {
+            pointer-events: none;
+
+            span {
+                pointer-events: auto;
+            }
+        }
+    }
+
+    &.bp-annotations-create--highlight,
+    &.bp-annotations-create--region {
+        @include bp-annotations-create-base;
+        @include bp-annotations-disable-drawing-targets;
+        @include bp-annotations-disable-highlight-targets;
+        @include bp-annotations-disable-region-targets;
+    }
+
+    &.bp-annotations-create--region {
+        &.bp-annotations-ftux-document-cursor-seen {
+            .ba-PopupCursor {
+                display: none;
+            }
+        }
+
+        .textLayer span {
+            pointer-events: none;
+        }
+    }
+
+    // Hide the toggle thumbnails button when in fullscreen
+    &.bp-is-fullscreen .bp-ThumbnailsToggle {
+        display: none;
+    }
+}
+
+/* stylelint-disable declaration-no-important */
+.bcpr.bcpr-thumbnails-open .bcpr-navigate-left {
+    left: $thumbnail-sidebar-width !important; // TODO: Move to BUIE once this release is in production
+}
+/* stylelint-enable declaration-no-important */

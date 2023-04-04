@@ -1,0 +1,17 @@
+@import '../controls/media/styles';
+
+.bp-DashControls {
+    @include bp-VideoControls;
+}
+
+.bp-DashControls-bar {
+    @include bp-VideoControls-bar;
+}
+
+.bp-DashControls-group {
+    @include bp-VideoControls-group;
+}
+
+.bp-DashControls-settings {
+    @include bp-VideoControls-settings;
+}

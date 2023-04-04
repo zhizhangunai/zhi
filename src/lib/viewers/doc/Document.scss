@@ -1,0 +1,59 @@
+@import 'docBase';
+@import './DocFindBar';
+
+.bp .bp-doc.bp-doc-document {
+    // Force scrollbar to be visible to standardize page width
+    overflow-y: scroll;
+}
+
+// Used for showing preload, aka Instant Preview
+.bp-document-preload-wrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    overflow-y: scroll;
+    background-color: $ffive;
+    opacity: 1;
+    transition: opacity .5s;
+
+    &.bp-is-invisible {
+        visibility: hidden;
+    }
+
+    &.bp-is-transparent {
+        opacity: 0;
+    }
+
+    .bp-theme-dark & {
+        background-color: $sunset-grey;
+    }
+
+    .bp-preload-content,
+    .bp-preload-overlay,
+    .bp-preload-placeholder::before {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+
+    .bp-preload-content {
+        width: 100%;
+    }
+
+    .bp-preload-overlay {
+        background-color: rgba(255, 255, 255, .4);
+    }
+
+    .bp-preload-placeholder {
+        @include bp-DocGhost;
+        @include bp-DocShadow;
+
+        position: relative;
+        margin: 15px auto 30px;
+    }
+}

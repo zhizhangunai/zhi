@@ -1,0 +1,43 @@
+.bp-images-wrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0;
+    overflow: auto;
+    white-space: nowrap;
+    text-align: center;
+    border: 0 none;
+    cursor: default; // regular cursor when not hovering over images
+}
+
+.bp-images.pannable {
+    cursor: move;
+    cursor: grab;
+}
+
+.bp-images.panning {
+    cursor: move;
+    cursor: grabbing;
+}
+
+.bp-images.zoomable {
+    cursor: pointer; /* cursor for IE11 */
+    cursor: zoom-in;
+}
+
+.bp-images {
+    margin: 0 auto;
+    padding: 0;
+    border: 0 none;
+}
+
+.bp-images img {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+}

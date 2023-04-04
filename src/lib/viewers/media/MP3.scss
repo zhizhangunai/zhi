@@ -1,0 +1,40 @@
+@import 'mediaBase';
+@import '../../_navigation';
+
+.bp-has-navigation {
+    .bp-media-mp3 {
+        .bp-media-container {
+            width: calc(100% - #{2 * $navigationBtnWidth}); // to prevent overlap in mobile devices
+        }
+    }
+}
+
+.bp-media-mp3 {
+    .bp-media-container {
+        width: 100%;
+        max-width: 360px;
+        height: 60px; // same as controls
+        overflow: visible; // to show settings popup
+        outline: 0 none;
+    }
+
+    .bp-media-fullscreen-icon {
+        display: none;
+    }
+
+    .bp-media-gear-icon {
+        position: absolute;
+        right: 10px;
+    }
+
+    .bp-media-controls-wrapper {
+        background: $black;
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .bp-media-settings-item-quality,
+    .bp-image-switch-360-icon {
+        display: none;
+    }
+}

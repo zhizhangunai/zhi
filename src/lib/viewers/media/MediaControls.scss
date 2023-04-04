@@ -1,0 +1,231 @@
+@import './Scrubber';
+@import './Settings';
+
+.bp-media-controls-is-visible .bp-media-controls-wrapper,
+.bp-media-controls-wrapper:active,
+.bp-media-controls-wrapper:focus {
+    visibility: visible;
+    opacity: 1;
+}
+
+.bp-media-controls-wrapper {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    margin: auto;
+    overflow: hidden;
+    background-image: linear-gradient(to top, rgba($black, .6) 0%, rgba($black, 0) 100%);
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility .3s, opacity .3s;
+}
+
+.bp-media-time-scrubber-container {
+    outline: 0 none; // will be overridden by our own
+}
+
+.bp-media-volume-scrubber-container-wrapper {
+    display: inline-block;
+    width: 0;
+    height: 40px;
+    overflow: hidden;
+    transition: width .2s ease-in-out;
+}
+
+.bp-media-controls-volume-scrubber-expand {
+    width: 96px;
+}
+
+.bp-media-volume-scrubber-container {
+    position: relative;
+    display: inline-block;
+    width: 96px;
+    height: 40px;
+    padding: 10px 8px 0; // Need to pad left and right so that scrubber handle doesn't spill out of parent container
+    outline: 0 none;
+
+    .bp-media-scrubber-handle {
+        transform: scale(1);
+    }
+
+    .bp-media-scrubber-converted,
+    .bp-media-scrubber-buffered,
+    .bp-media-scrubber-played,
+    .bp-media-scrubber-underlay {
+        /* stylelint-disable declaration-no-important */
+        transform: scaleY(1) !important;
+        /* stylelint-enable declaration-no-important */
+    }
+}
+
+.bp-media-controls-container {
+    height: 40px;
+    margin: 0;
+    padding: 0 10px;
+    text-align: left;
+}
+
+.bp-media-controls-label,
+.bp-media-controls-btn {
+    display: inline-block;
+    width: 45px;
+    height: 40px;
+    margin: 0;
+    padding: 0;
+    color: $white;
+    font-weight: normal;
+    font-size: 12px;
+    text-align: center;
+    vertical-align: top;
+    background-color: transparent;
+    border: none;
+    outline: 0 none;
+    cursor: pointer;
+    opacity: .7;
+
+    &:hover {
+        opacity: 1;
+    }
+}
+
+.bp-media-volume-icon {
+    position: relative;
+    display: inline-block;
+    width: 36px;
+    height: 40px;
+    vertical-align: top;
+
+    .bp-is-mobile & {
+        display: none;
+    }
+}
+
+.bp-media-controls-label {
+    display: inline-block;
+    width: auto;
+    margin: 0 4px;
+    line-height: 40px;
+    vertical-align: top;
+    cursor: default;
+}
+
+.bp-media-controls-timecode {
+    margin-left: 13px;
+}
+
+.bp-media-controls-volume-control {
+    display: inline-block;
+    width: 45px;
+    height: 40px;
+    vertical-align: top;
+
+    .bp-is-mobile & {
+        display: none;
+    }
+}
+
+.bp-is-fullscreen {
+    .bp-media-fullscreen-icon .bp-exit-fullscreen-icon {
+        display: inline-block;
+    }
+}
+
+.bp-media-fullscreen-icon {
+    position: absolute;
+    right: 10px;
+}
+
+.bp-media-gear-icon {
+    position: absolute;
+    right: 55px;
+
+    svg path {
+        transform-origin: 50%;
+        transition: all .3s;
+    }
+
+    .bp-media-settings-is-open & svg path {
+        transform: rotateZ(60deg);
+    }
+}
+
+.bp-media-cc-icon {
+    position: absolute;
+    right: 100px;
+    visibility: visible;
+
+    .bp-media-settings-subtitles-unavailable & {
+        visibility: hidden;
+    }
+}
+
+.bp-media-controls-cc-icon-text {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    padding: 0 0 0 1px; // Padding left 1px because text isn't perfectly centered on Safari/Firefox even with text-align:center. Looks fine with extra-padding on Chrome/IE/Edge
+    color: $white;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 24px;
+    letter-spacing: .1em;
+    background-color: rgba($black, .3); // Anything less than .3 looks too transparent on IE/Edge
+    border-radius: 4px;
+
+    .bp-media-settings-subtitles-on & {
+        color: $white;
+        background-color: $box-blue;
+    }
+}
+
+.bp-media-controls-hd {
+    position: absolute;
+    left: 22px;
+    display: none;
+    padding: 2px 2px 2px 3px;
+    font-weight: bold;
+    font-size: 8px;
+    line-height: 8px;
+    letter-spacing: .1em;
+    background-color: $box-blue;
+    border-radius: 3px;
+
+    .bp-media-controls-is-hd & {
+        display: inline;
+    }
+}
+
+.bp-media-play-icon {
+    display: inline;
+
+    .bp-media-is-playing & {
+        display: none;
+    }
+}
+
+.bp-media-pause-icon {
+    display: none;
+
+    .bp-media-is-playing & {
+        display: inline;
+    }
+}
+
+.bp-media-volume-icon-mute,
+.bp-media-volume-icon-low,
+.bp-media-volume-icon-medium,
+.bp-media-volume-icon-high {
+    position: absolute;
+    left: 6px;
+    display: none;
+}
+
+.bp-media-volume-icon-is-mute .bp-media-volume-icon-mute,
+.bp-media-volume-icon-is-low .bp-media-volume-icon-low,
+.bp-media-volume-icon-is-medium .bp-media-volume-icon-medium,
+.bp-media-volume-icon-is-high .bp-media-volume-icon-high {
+    display: inline;
+}

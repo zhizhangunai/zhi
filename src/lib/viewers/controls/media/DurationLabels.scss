@@ -1,0 +1,19 @@
+@import './styles';
+
+.bp-DurationLabels {
+    display: flex;
+    align-items: center;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.bp-DurationLabels-label {
+    @include bp-Control--fade;
+
+    padding-right: 4px;
+    padding-left: 4px;
+    color: $white;
+    font-size: 12px;
+    line-height: 12px;
+    cursor: default;
+}

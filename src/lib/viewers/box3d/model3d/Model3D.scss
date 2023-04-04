@@ -1,0 +1,198 @@
+@import '../../../boxuiVariables';
+
+$arrow-top-bottom: 4px solid transparent;
+
+@mixin arrow-left($color) {
+    border-right: 5px solid $color;
+}
+
+@mixin arrow-right($color) {
+    border-left: 5px solid $color;
+}
+
+.bp-box3d {
+    .bp-settings-wrapper .bp-settings-btn:active,
+    .bp-overlay span:active {
+        opacity: 1;
+    }
+
+    .bp-pullup {
+        bottom: 100%;
+        padding: 0 10px 20px;
+        white-space: nowrap;
+        text-align: left;
+    }
+
+    .bp-settings-panel-row {
+        display: block;
+        margin-top: 6px;
+
+        &::before,
+        &::after {
+            display: table;
+            line-height: 0;
+            content: '';
+        }
+
+        &::before {
+            clear: both;
+            padding-top: 10px;
+        }
+    }
+
+    .bp-settings-panel-label {
+        display: inline;
+        margin: 4px;
+        color: $seventy-sixers;
+        line-height: 1;
+        white-space: nowrap;
+    }
+
+    .bp-panel-btn {
+        height: 34px;
+        overflow: hidden;
+        line-height: 34px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .bp-toggle-overlay {
+        .bp-menu {
+            min-width: 183px;
+        }
+
+        .bp-btn {
+            width: 100%;
+            height: 34px;
+            padding: 5px 0 5px 10px;
+            color: #808080;
+            font-size: 13px;
+            letter-spacing: 0;
+            text-align: left;
+            text-transform: none;
+
+            &::after {
+                position: absolute;
+                top: 15px;
+                right: 11px;
+                width: 0;
+                height: 0;
+                border-top: 3px solid #494949;
+                border-right: 3px solid transparent;
+                border-left: 3px solid transparent;
+                content: '';
+            }
+        }
+    }
+
+    .bp-overlay-panel {
+        .bp-btn .bp-btn-primary {
+            margin: 6px 0 0;
+        }
+    }
+
+    .box3d-settings-axis-widget {
+        display: inline;
+        padding-bottom: 10px;
+        border: 1px solid #caccd0;
+        border-bottom-width: 2px;
+        border-radius: 2px;
+
+        &.box3d-settings-axis-widget-x {
+            border-bottom-color: #e33d55;
+        }
+
+        &.box3d-settings-axis-widget-y {
+            margin-right: 4px;
+            margin-left: 4px;
+            border-bottom-color: #26c281;
+        }
+
+        &.box3d-settings-axis-widget-z {
+            border-bottom-color: #22a7f0;
+        }
+
+        span {
+            display: inline;
+        }
+
+        .box3d-settings-axis-label {
+            color: $fours;
+        }
+
+        .box3d-setting-axis-rotate {
+            padding: 0 12px;
+            color: $box-blue;
+            font-size: medium;
+            cursor: pointer;
+        }
+
+        .box3d-setting-axis-rotate-left::after,
+        .box3d-setting-axis-rotate-right::after {
+            position: absolute;
+            top: 7px;
+            width: 0;
+            height: 0;
+            border-top: $arrow-top-bottom;
+            border-bottom: $arrow-top-bottom;
+            content: '';
+        }
+
+        .box3d-setting-axis-rotate-left::after {
+            @include arrow-left($fours);
+
+            left: 10px;
+        }
+
+        .box3d-setting-axis-rotate-right::after {
+            @include arrow-right($fours);
+
+            right: 10px;
+        }
+
+        .box3d-setting-axis-rotate-left:hover::after {
+            @include arrow-left($eights);
+        }
+
+        .box3d-setting-axis-rotate-right:hover::after {
+            @include arrow-right($eights);
+        }
+
+        .box3d-setting-axis-rotate-left:active::after {
+            @include arrow-left($twos);
+        }
+
+        .box3d-setting-axis-rotate-right:active::after {
+            @include arrow-right($twos);
+        }
+    }
+
+    .box3d-animation-clip-pullup {
+        max-height: 200px;
+        overflow: auto;
+    }
+
+    .box3d-animation-clip {
+        display: block;
+        margin-top: 6px;
+        white-space: nowrap;
+        cursor: pointer;
+
+        .box3d-animation-clip-icon {
+            display: inline-block;
+            width: 24px;
+
+            svg {
+                height: 16px;
+                vertical-align: text-bottom;
+            }
+        }
+
+        .box3d-animation-clip-value {
+            display: inline;
+            max-width: 183px;
+            overflow-x: hidden;
+            white-space: nowrap;
+        }
+    }
+}

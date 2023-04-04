@@ -1,0 +1,475 @@
+/* stylelint-disable */
+// Box-specific components from internal Box UI CSS
+
+@import 'boxuiVariables';
+
+//------------------------------------------------------------------------------
+// Typography
+//------------------------------------------------------------------------------
+.bp,
+.bp-header,
+.bp a,
+.bp-header a {
+    text-shadow: 1px 1px 1px fade-out($white, .996);
+}
+
+.bp,
+.bp-header,
+.bp button,
+.bp-header button {
+    font-family: Lato, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.bp li,
+.bp-header li {
+    margin: 0;
+    padding: 0;
+}
+
+//------------------------------------------------------------------------------
+// Buttons
+//------------------------------------------------------------------------------
+.bp-btn {
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+    margin: 5px;
+    padding: 10px 16px;
+    font-size: 13px;
+    line-height: 10px;
+    white-space: nowrap;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: top;
+    border-style: solid;
+    border-width: 1px;
+    cursor: pointer;
+    zoom: 1;
+
+    &.is-disabled {
+        top: 0; // prevents disabled button from being depressed on click
+        cursor: default;
+    }
+
+    &.is-disabled,
+    &.is-disabled:active,
+    &.is-disabled:hover,
+    &.is-disabled:focus {
+        color: #666;
+        background-color: $haze;
+        border: 1px solid $sf-fog;
+        box-shadow: none;
+        opacity: .4;
+    }
+
+    svg {
+        pointer-events: none;
+    }
+}
+
+.bp-btn-plain,
+.bp-btn-plain:hover,
+.bp-btn-plain:active {
+    height: auto;
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+    vertical-align: middle;
+    border: 0;
+    cursor: pointer;
+
+    svg {
+        pointer-events: none;
+    }
+}
+
+.bp-btn-plain {
+    background: transparent;
+    outline: none;
+    box-shadow: none;
+
+    &.is-disabled {
+        color: #666;
+        background-color: $haze;
+        opacity: .4;
+        pointer-events: none;
+    }
+}
+
+.bp-btn {
+    color: $sunset-grey;
+    font-weight: normal;
+    letter-spacing: 1px;
+    text-shadow: none;
+    background-color: $white;
+    border: 1px solid $sf-fog;
+    border-radius: 2px;
+    cursor: pointer;
+    -webkit-transition: border-color linear .15s, box-shadow linear .15s, background-color linear .15s;
+    transition: background-color .05s ease-in-out, border-color .05s ease-in-out;
+    -webkit-appearance: none;
+
+    &:hover {
+        text-decoration: none;
+        background-color: darken($white, 3%);
+    }
+
+    &:active,
+    &:active:focus {
+        background-color: darken($white, 8%);
+        border-color: $sf-fog;
+        outline: 0;
+    }
+
+    &:focus {
+        text-decoration: none;
+        border-color: darken($sf-fog, 14%);
+        outline: 0;
+        box-shadow: 0 1px 2px fade-out($black, .9);
+    }
+}
+
+.bp-btn-primary {
+    color: $white;
+    background-color: $box-blue;
+    border-color: $box-blue;
+
+    &:focus:hover,
+    &:focus {
+        border-color: $box-blue;
+        outline: 0;
+        box-shadow: inset 0 0 0 1px fade-out($white, .2), 0 1px 2px fade-out($black, .9);
+    }
+
+    &:hover {
+        background-color: lighten($box-blue, 8%);
+        border-color: lighten($box-blue, 8%);
+    }
+
+    &:active:hover,
+    &:active {
+        background-color: darken($box-blue, 8%);
+        border-color: darken($box-blue, 8%);
+        box-shadow: none;
+    }
+
+    &.is-disabled,
+    &.is-disabled:active,
+    &.is-disabled:hover,
+    &.is-disabled:focus {
+        color: $white;
+        background-color: $primary-color;
+        border-color: $primary-color;
+    }
+}
+
+//------------------------------------------------------------------------------
+// Forms
+//------------------------------------------------------------------------------
+.bp-textarea {
+    color: $sunset-grey;
+    border: 1px solid $sf-fog;
+    border-radius: 2px;
+    box-shadow: inset 0 1px 1px lighten($black, 90%);
+    -webkit-transition: border-color linear .15s, box-shadow linear .1s;
+    transition: border-color linear .15s, box-shadow linear .1s;
+}
+
+.bp-textarea:hover {
+    box-shadow: inset 0 1px 1px lighten($black, 85%);
+}
+
+.bp-textarea:focus {
+    border: 1px solid $box-blue;
+    outline: 0;
+    box-shadow: none;
+}
+
+.bp-controls {
+    /* Inputs */
+    input[type='text'],
+    input[type='number'],
+    div[contentEditable='true'],
+    textarea {
+        width: 262px;
+        padding: 7px;
+        color: $twos;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .1);
+        transition: border-color linear .15s, box-shadow linear .1s;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    input[type='text']:hover,
+    input[type='number']:hover,
+    div[contentEditable='true']:hover,
+    textarea:hover {
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .15);
+    }
+
+    input[type='text']:focus,
+    input[type='number']:focus,
+    div[contentEditable='true']:focus,
+    textarea:focus {
+        border: 1px solid $primary-color;
+        outline: 0;
+        box-shadow: none;
+    }
+
+    input::-webkit-input-placeholder,
+    input::-moz-placeholder,
+    input:-ms-input-placeholder {
+        color: #ccc;
+    }
+}
+
+//------------------------------------------------------------------------------
+// Menus
+//------------------------------------------------------------------------------
+.bp-overlay {
+    position: absolute;
+    z-index: 90;
+    margin: 0;
+    padding: 8px 0;
+    background: $white;
+    border: 1px solid $sf-fog;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .1);
+    -webkit-transform: rotateY(-10deg) rotateX(-10deg);
+    transform: rotateY(-10deg) rotateX(-10deg);
+    -webkit-transform-origin: left top;
+    transform-origin: left top;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    visibility: hidden;
+    opacity: 0;
+    -webkit-transition: visibility 0s linear .075s, opacity .075s, -webkit-transform .125s;
+    transition: visibility 0s linear .075s, opacity .075s, -webkit-transform .125s;
+    transition: visibility 0s linear .075s, opacity .075s, transform .125s;
+    transition: visibility 0s linear .075s, opacity .075s, transform .125s, -webkit-transform .125s;
+    pointer-events: none;
+}
+
+.bp-link {
+    overflow: hidden;
+    color: #64686d;
+    line-height: 1.5em;
+    white-space: nowrap;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, .004);
+    -webkit-transition: color .05s;
+    transition: color .05s;
+    font-smoothing: antialiased;
+}
+
+.bp-menu {
+    min-width: 225px;
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+    list-style: none;
+
+    .link-group {
+        ul {
+            margin: 0;
+
+            a {
+                display: block;
+                padding: 5px 35px 5px 15px;
+                color: #494949;
+
+                &:hover {
+                    color: #1a5976;
+                    background: #f6fafd;
+                    cursor: pointer;
+                    fill: #1a5976;
+                }
+            }
+        }
+    }
+}
+
+//------------------------------------------------------------------------------
+// Notifications
+//------------------------------------------------------------------------------
+.bp-notifications-wrapper {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 130;
+    height: 0; /* allows elements around notifications to be clickable */
+}
+
+.bp-notification {
+    display: flex;
+    align-items: center;
+    max-width: 572px;
+    min-height: 48px;
+    margin: 10px auto;
+    padding: 10px 10px 10px 20px;
+    overflow: hidden;
+    color: $white;
+    font-weight: bold;
+    background-color: $sunset-grey;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px fade-out($black, .85);
+    transition: opacity .1s ease-out;
+
+    &.info {
+        background-color: $thats-mint;
+    }
+
+    &.warn {
+        background-color: $dehydrated;
+    }
+
+    &.error {
+        background-color: $amaranth;
+    }
+
+    &.is-hidden {
+        box-shadow: none; /* to improve compositing performance */
+        opacity: 0;
+    }
+
+    > span {
+        margin-right: auto;
+        padding-right: 10px;
+        font-size: 15px;
+    }
+
+    &.wrap > span {
+        overflow: hidden;
+        word-wrap: break-word; /* Include legacy name to support older browsers */
+        overflow-wrap: break-word;
+    }
+
+    &.ellipsis > span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    button,
+    a {
+        flex: none;
+        color: $white;
+
+        &.btn,
+        &.btn:active:focus {
+            margin: 0 5px;
+            padding: 7px 13px;
+            background-color: transparent;
+            border-color: $off-white;
+        }
+
+        &.close-btn {
+            margin: 0 7px;
+            font-weight: bold;
+            font-size: 14px;
+            background: none;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            opacity: .6;
+
+            &.default-close-btn {
+                svg {
+                    width: 24px;
+                    height: 24px;
+                    pointer-events: none;
+
+                    path.icon {
+                        fill: $white;
+                    }
+                }
+            }
+        }
+    }
+}
+
+//------------------------------------------------------------------------------
+// Popups
+//------------------------------------------------------------------------------
+
+.bp-modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 160;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    padding: 30px;
+    overflow: hidden;
+}
+
+.bp-modal-dialog {
+    position: relative;
+    width: 460px;
+    margin: auto;
+    padding: 30px;
+    background-color: $white;
+    background-clip: padding-box;
+    box-shadow: 0 3px 10px fade-out($black, .7);
+}
+
+.bp-modal-header {
+    display: flex;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.bp-modal-title {
+    display: inline-block;
+    flex: 1;
+    overflow: hidden;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.bp-modal-content {
+    margin-top: 27px;
+}
+
+.bp-modal-close-button {
+    color: $downtown-grey;
+    font-weight: bold;
+    font-size: 11px;
+    background: none;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+}
+
+.bp-modal-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1; // .modal creates a new stacking context. Let's just make sure that backdrop is below dialog.
+    background: $white;
+    opacity: .75;
+    filter: alpha(opacity=75);
+}
+
+.bp-modal-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    text-align: right;
+}
+
+.bp-modal-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 89;
+    display: flex;
+}

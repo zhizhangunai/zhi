@@ -1,0 +1,11 @@
+@import '../styles';
+
+.bp-PageControls {
+    display: flex;
+    align-items: center;
+}
+
+.bp-PageControls-button {
+    @include bp-Control($width: $bp-controls-size-small);
+    @include bp-Control--expand;
+}

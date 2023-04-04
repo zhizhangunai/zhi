@@ -1,0 +1,56 @@
+@import '../styles';
+
+.bp-ColorPickerControl {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bp-ColorPickerControl-toggle {
+    @include bp-Control;
+
+    &.bp-is-active,
+    &:focus,
+    &:hover {
+        .bp-ColorPickerControl-toggle-background {
+            padding: 8px;
+            background-color: $fours;
+            border-radius: $bp-controls-radius-inner;
+        }
+    }
+}
+
+.bp-ColorPickerControl-palette {
+    $arrow-height: 12px;
+
+    position: absolute;
+    top: -#{$arrow-height};
+    left: 50%;
+    z-index: 1;
+    display: none;
+    padding-bottom: 10px;
+    transform: translate(-50%, -100%);
+
+    &::after {
+        position: absolute;
+        left: 50%;
+        display: block;
+        border-top: $arrow-height solid $bp-controls-background;
+        border-right: $arrow-height solid transparent;
+        border-left: $arrow-height solid transparent;
+        transform: translateX(-50%);
+        content: '';
+    }
+
+    &.bp-is-open {
+        display: block;
+    }
+}
+
+.bp-ColorPickerControl-toggle-swatch {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #fff;
+    border-radius: 2px;
+}

@@ -1,0 +1,16 @@
+@import '../styles';
+
+.bp-ControlsBar {
+    display: flex;
+    align-items: center;
+    background: $bp-controls-background;
+    border-radius: $bp-controls-radius-outer;
+
+    &:empty {
+        display: none;
+    }
+
+    & + & {
+        margin-left: $bp-controls-spacing;
+    }
+}

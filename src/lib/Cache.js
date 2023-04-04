@@ -1,0 +1,151 @@
+import { isLocalStorageAvailable } from './util';
+
+class Cache {
+    //--------------------------------------------------------------------------
+    // Public
+    //--------------------------------------------------------------------------
+
+    /**
+     * [constructor]
+     *
+     * @return {Cache} Cache instance
+     */
+    constructor() {
+        this.cache = {};
+    }
+
+    /**
+     * Caches a simple object in memory and in localStorage if specified.
+     * Note that objects cached in localStorage will be stringified.
+     *
+     * @public
+     * @param {string} key - The cache key
+     * @param {*} value - The cache value
+     * @param {boolean} useLocalStorage - Whether or not to use localStorage
+     * @return {void}
+     */
+    set(key, value, useLocalStorage) {
+        this.cache[key] = value;
+
+        if (useLocalStorage && this.isLocalStorageAvailable()) {
+            localStorage.setItem(this.generateKey(key), JSON.stringify(value));
+        }
+    }
+
+    /**
+     * Deletes object from in-memory cache and localStorage.
+     *
+     * @public
+     * @param {string} key - The cache key
+     * @return {void}
+     */
+    unset(key) {
+        if (this.isLocalStorageAvailable()) {
+            localStorage.removeItem(this.generateKey(key));
+        }
+
+        delete this.cache[key];
+    }
+
+    /**
+     * Checks if cache has provided key.
+     *
+     * @public
+     * @param {string} key - The cache key
+     * @return {boolean} Whether the cache has key
+     */
+    has(key) {
+        return this.inCache(key) || this.inLocalStorage(key);
+    }
+
+    /**
+     * Fetches a cached object from in-memory cache if available. Otherwise
+     * tries to fetch from localStorage. If fetched from localStorage, object
+     * will be a JSON parsed object.
+     *
+     * @public
+     * @param {string} key - Key of cached object
+     * @return {Object} Cached object
+     */
+    get(key) {
+        if (this.inCache(key)) {
+            return this.cache[key];
+        }
+
+        // If localStorage is available, try to fetch from there and set it
+        // in in-memory cache if found
+        if (this.inLocalStorage(key)) {
+            let value = localStorage.getItem(this.generateKey(key));
+            if (value) {
+                value = JSON.parse(value);
+                this.cache[key] = value;
+                return value;
+            }
+        }
+
+        return undefined;
+    }
+
+    //--------------------------------------------------------------------------
+    // Private
+    //--------------------------------------------------------------------------
+
+    /**
+     * Checks if memory cache has provided key.
+     *
+     * @private
+     * @param {string} key - The cache key
+     * @return {boolean} Whether the cache has key
+     */
+    inCache(key) {
+        return {}.hasOwnProperty.call(this.cache, key);
+    }
+
+    /**
+     * Checks if memory cache has provided key.
+     *
+     * @private
+     * @param {string} key - The cache key
+     * @return {boolean} Whether the cache has key
+     */
+    inLocalStorage(key) {
+        if (!this.isLocalStorageAvailable()) {
+            return false;
+        }
+
+        return !!localStorage.getItem(this.generateKey(key));
+    }
+
+    /**
+     * Checks whether localStorage is available.
+     *
+     * @NOTE(tjin): This check is cached to not have to write/read from disk
+     * every time this check is needed, but this will not catch instances where
+     * localStorage was available the first time this is called, but becomes
+     * unavailable at a later time.
+     *
+     * @private
+     * @return {boolean} Whether or not localStorage is available or not.
+     */
+    isLocalStorageAvailable() {
+        if (this.available === undefined) {
+            this.available = isLocalStorageAvailable();
+        }
+
+        return this.available;
+    }
+
+    /**
+     * Generates a key to use for localStorage from the provided key. This
+     * should prevent name collisions.
+     *
+     * @private
+     * @param {string} key - Generate key from this key
+     * @return {string} Generated key for localStorage
+     */
+    generateKey(key) {
+        return `bp-${key}`;
+    }
+}
+
+export default Cache;

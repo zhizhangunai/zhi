@@ -1,0 +1,39 @@
+@import '../styles';
+
+@mixin bp-SettingsRow {
+    display: table-row;
+    overflow: hidden;
+    white-space: nowrap;
+    outline: 0 none;
+    cursor: pointer;
+}
+
+@mixin bp-SettingsRow-cell {
+    display: table-cell;
+    line-height: 1;
+    vertical-align: middle;
+
+    svg {
+        display: block;
+    }
+}
+
+@mixin bp-SettingsRow-label {
+    @include bp-SettingsRow-cell;
+
+    padding: 6px;
+    color: $downtown-grey;
+    font-weight: normal;
+    font-size: 11px;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+@mixin bp-SettingsRow-value {
+    @include bp-SettingsRow-cell;
+
+    padding: 6px;
+    color: $sunset-grey;
+    font-size: 12px;
+    text-align: left;
+}

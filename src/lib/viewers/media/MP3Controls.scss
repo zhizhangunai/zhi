@@ -1,0 +1,26 @@
+@import '../controls/media/styles';
+
+.bp-MP3Controls {
+    display: flex;
+    flex-direction: column;
+    width: 360px; // Required because the controls are the only visible elements within the viewer
+    background-color: $black;
+}
+
+.bp-MP3Controls-bar {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px 5px;
+}
+
+.bp-MP3Controls-group {
+    display: flex;
+    align-items: center;
+}
+
+.bp-MP3Controls-settings {
+    .bp-SettingsToggle {
+        width: $bp-MediaControl-width;
+        height: $bp-MediaControl-height;
+    }
+}
